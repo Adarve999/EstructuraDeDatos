@@ -1,0 +1,8 @@
+﻿  Gestor.cpp
+  PECL1-RubenAdarve.cpp
+G:\Mi unidad\1º cuatrimestre\1 Estructuras de datos\laboratorio\PECL1\PECL1-RubenAdarve\PECL1-RubenAdarve.cpp(13,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Pila.cpp
+G:\Mi unidad\1º cuatrimestre\1 Estructuras de datos\laboratorio\PECL1\PECL1-RubenAdarve\Pila.cpp(37,12): warning C4101: 'nodo': variable local sin referencia
+  Zona.cpp
+  Generando código...
+  PECL1-RubenAdarve.vcxproj -> G:\Mi unidad\1º cuatrimestre\1 Estructuras de datos\laboratorio\PECL1\PECL1-RubenAdarve\x64\Debug\PECL1-RubenAdarve.exe

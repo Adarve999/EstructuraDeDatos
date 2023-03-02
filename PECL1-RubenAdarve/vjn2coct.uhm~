@@ -1,0 +1,383 @@
+#include "Gestor.h"
+#include "Vehiculo.h"
+Gestor::Gestor()
+{
+}
+void Gestor::crear_Vehiculos(int nVehiculos)
+{
+
+	cout << "Generados - " << nVehiculos << " coches." << endl;
+	for (int i = 0; i < nVehiculos; i++)
+	{
+		Vehiculo v;
+		cola_fabrica.insertar(v);
+
+	}
+}
+
+void Gestor::crear_VehiculosPorUsuario(string cadUsuario)
+{
+	int nVehiculos;
+	nVehiculos = stoi(cadUsuario);
+	cout << "Generados - " << nVehiculos << " coches." << endl;
+	for (int i = 0; i < nVehiculos; i++)
+	{
+		Vehiculo v;
+		cola_fabrica.insertar(v);
+	}
+}
+void Gestor::mostrar_cola_fabrica()
+{
+	cout << "-------------------" << endl;
+	cout << "|    Cola Fabrica     |" << endl;;
+	cout << "-------------------" << endl;
+	if (cola_fabrica.getLongitud() == 0)
+	{
+		cout << "La cola de la fabrica esta vacia de coches." << endl;
+	}
+	else
+	{
+		cola_fabrica.mostrar();
+	}
+}
+void Gestor::mostrar_cola_zona()
+{
+	if (cola_zona.getLongitud() == 0)
+	{
+		cout << "La cola de la zona esta vacia de coches." << endl;
+	}
+	else
+	{
+		cola_zona.mostrar();
+	}
+}
+
+void Gestor::borrar_cola_fabrica()
+{
+	if (cola_fabrica.getLongitud() == 0)
+	{
+		cout << "La cola de la fabrica esta vacia de coches." << endl;
+	}
+	else
+	{
+		while (cola_fabrica.getLongitud() != 0)
+		{
+			cola_fabrica.eliminar();
+		}
+		cout << "Se ha eliminado la cola_fabrica correctamente." << endl;
+
+	}
+}
+
+void Gestor::cargar_Vehiculos(int NS, int tamanoCamion)
+{
+	if (cola_fabrica.getLongitud() == 0)
+	{
+		cout << "La cola de la fabrica esta vacia de coches." << endl;
+	}
+	else
+	{
+		int selectorZona;
+		string letras[3] = { "A","B","C" };
+		if (cola_fabrica.getLongitud() <= NS) { NS = cola_fabrica.getLongitud(); } //para que no crees de más vehiculos
+
+		cargaPilas(NS, tamanoCamion); // metodo para llenar las pilas
+
+		vaciarPilas(tamanoCamion);
+
+		cout << NS << " Vehiculos cargados correctamente." << endl;
+	}
+}
+
+void Gestor::cargar_VehiculosPorUsuario(string cadUsuario, int tamanoCamion)
+{
+
+	if (cola_fabrica.getLongitud() == 0)
+	{
+		cout << "La cola de la fabrica esta vacia de coches." << endl;
+	}
+	else
+	{
+		int nVehiculos = stoi(cadUsuario);
+		if (cola_fabrica.getLongitud() <= nVehiculos) { nVehiculos = cola_fabrica.getLongitud(); }//para que no crees de más vehiculos
+
+		cargaPilas(nVehiculos, tamanoCamion);  // metodo para llenar las pilas
+
+		vaciarPilas(tamanoCamion);
+
+		cout << nVehiculos << " Vehiculos cargados correctamente." << endl;
+
+	}
+}
+
+void Gestor::cargaPilas(int Vehiculos, int tamanoCamion) {
+
+	int selectorZona;
+	string letras[3] = { "A","B","C" };
+	for (int i = 0; i < Vehiculos; i++)
+	{
+		string zona;
+		selectorZona = rand() % 3;
+		zona = letras[selectorZona];
+		switch (zona[0])
+		{
+		case('A'):
+			if (camionA_1.getLongitud() <= tamanoCamion)
+			{
+				camionA_1.insertar(cola_fabrica.eliminar());
+				if (camionA_1.getLongitud() == tamanoCamion)  //significa que hemos llegado al maximo de la pila
+				{
+			}
+			else if (camionA_2.getLongitud() <= tamanoCamion && camionA_1.getLongitud() == tamanoCamion)
+			{
+				camionA_2.insertar(cola_fabrica.eliminar());
+
+			}
+			break;
+		case('B'):
+			if (camionB_1.getLongitud() <= tamanoCamion)
+			{
+				camionB_1.insertar(cola_fabrica.eliminar());
+
+			}
+			else if (camionB_2.getLongitud() <= tamanoCamion && camionB_1.getLongitud() == tamanoCamion)
+			{
+				camionB_2.insertar(cola_fabrica.eliminar());
+
+			}
+			break;
+		case('C'):
+			if (camionC_1.getLongitud() <= tamanoCamion)
+			{
+				camionC_1.insertar(cola_fabrica.eliminar());
+
+			}
+			else if (camionC_2.getLongitud() <= tamanoCamion && camionC_1.getLongitud() == tamanoCamion)
+			{
+				camionC_2.insertar(cola_fabrica.eliminar());
+
+			}
+			break;
+		}
+	}
+
+
+}
+void Gestor::vaciarPilas(int tamanoCamion) {
+
+	if (camionA_1.getLongitud() == tamanoCamion)  //significa que hemos llegado al maximo de la pila
+	{
+		while (camionA_1.getLongitud() != 0)
+		{
+			Vehiculo v = camionA_1.extraer();
+			v.set_concesionario(v.generarConcesionario());
+			cola_zona.insertar(v);
+		}
+	}
+	else {
+		while (camionA_2.getLongitud() != 0)
+		{
+			Vehiculo v = camionA_2.extraer();
+			v.set_concesionario(v.generarConcesionario());
+			cola_zona.insertar(v);
+
+		}
+	}
+	if (camionB_1.getLongitud() == tamanoCamion)  //significa que hemos llegado al maximo de la pila
+	{
+		while (camionB_1.getLongitud() != 0)
+		{
+			Vehiculo v = camionB_1.extraer();
+			v.set_concesionario(v.generarConcesionario());
+			cola_zona.insertar(v);
+		}
+	}
+	else {
+
+		//significa que hemos llegado al maximo de la pila
+
+		while (camionB_2.getLongitud() != 0)
+		{
+			Vehiculo v = camionB_2.extraer();
+			v.set_concesionario(v.generarConcesionario());
+			cola_zona.insertar(v);
+		}
+	}
+	if (camionC_1.getLongitud() == tamanoCamion)  //significa que hemos llegado al maximo de la pila
+	{
+		while (camionC_1.getLongitud() != 0)
+		{
+			Vehiculo v = camionC_1.extraer();
+			v.set_concesionario(v.generarConcesionario());
+			cola_zona.insertar(v);
+		}
+	}
+	else  //significa que hemos llegado al maximo de la pila
+	{
+		while (camionC_2.getLongitud() != 0)
+		{
+			Vehiculo v = camionC_2.extraer();
+			v.set_concesionario(v.generarConcesionario());
+			cola_zona.insertar(v);
+		}
+	}
+}
+void Gestor::mostrar_cola_zona_Y_pilas()
+{
+	cout << "-------------------" << endl;
+	cout << "|     ZONA A      |" << endl;
+	cout << "-------------------" << endl;
+	cout << "Camion A - 1" << endl;
+	cout << endl;
+	camionA_1.mostrar();
+	cout << "Camion A - 2" << endl;
+	cout << endl;
+	camionA_2.mostrar();
+	cout << endl;
+	cout << "-------------------" << endl;
+	cout << "|     ZONA B      |" << endl;
+	cout << "-------------------" << endl;
+	cout << "Camion B - 1" << endl;
+	cout << endl;
+	camionB_1.mostrar();
+	cout << "Camion B - 2" << endl;
+	cout << endl;
+	camionB_2.mostrar();
+	cout << endl;
+	cout << "-------------------" << endl;
+	cout << "|     ZONA C      |" << endl;
+	cout << "-------------------" << endl;
+	cout << "Camion C - 1" << endl;
+	cout << endl;
+	camionC_1.mostrar();
+	cout << "Camion C - 2" << endl;
+	cout << endl;
+	camionC_2.mostrar();
+	cout << endl;
+	cout << "-------------------" << endl;
+	cout << "|    Cola Zona     |" << endl;;
+	cout << "-------------------" << endl;
+	cout << endl;
+	mostrar_cola_zona();
+}
+
+void Gestor::borrar_datos_Pilas()
+{
+	while (camionA_1.getLongitud() != 0)
+	{
+		camionA_1.extraer();
+	}
+	while (camionA_2.getLongitud() != 0)
+	{
+		camionA_2.extraer();
+	}
+	while (camionB_1.getLongitud() != 0)
+	{
+		camionB_1.extraer();
+	}
+	while (camionB_2.getLongitud() != 0)
+	{
+		camionB_2.extraer();
+	}
+	while (camionC_1.getLongitud() != 0)
+	{
+		camionC_1.extraer();
+	}
+	while (camionC_2.getLongitud() != 0)
+	{
+		camionC_2.extraer();
+	}
+	cout << "Se han eliminado los datos de los camiones." << endl;
+}
+
+void Gestor::borrar_datos_cola_zona()
+{
+	if (cola_zona.getLongitud() == 0)
+	{
+		cout << "La cola_zona esta vacia de coches." << endl;
+	}
+	else
+	{
+		while (cola_zona.getLongitud() != 0)
+		{
+			cola_zona.eliminar();
+		}
+		cout << "Se ha eliminado la cola_zona correctamente." << endl;
+
+	}
+}
+
+void Gestor::SimulacionCompleta(int Nvehiculos, int NsacarVehiculos, int tamanoCamion)
+{
+	borrar_cola_fabrica();
+	borrar_datos_Pilas();
+	borrar_datos_cola_zona();
+	cout << endl;
+	cout << "PASO 1: Creacion de vehiculos " << endl;
+	cout << "--------------------------------------" << endl;
+	cout << endl;
+	//limpiamos los contenedores de datos para comenzar la simulación
+	//
+	//PASO 1: Creacion de vehiculos
+	crear_Vehiculos(Nvehiculos);
+	mostrar_cola_fabrica();
+	mostrar_cola_zona_Y_pilas();
+	//PASO 2: Vaciar la cola fabrica y cargarlos en los camiones
+	cout << endl;
+	cout << "PASO 2: Vaciar la cola fabrica y cargarlos en los camiones " << endl;
+	cout << "--------------------------------------" << endl;
+	cout << endl;
+	while (cola_fabrica.getLongitud() != 0)
+	{
+		cargar_Vehiculos(NsacarVehiculos, tamanoCamion);
+		mostrar_cola_fabrica();
+		mostrar_cola_zona_Y_pilas();
+		cout << endl;
+	}
+	//PASO 3: Vaciar los camiones y insertarlos en la zona_cola
+	cout << endl;
+	cout << "PASO 3: Vaciar los camiones y insertarlos en la zona_cola " << endl;
+	cout << "--------------------------------------" << endl;
+	cout << endl;
+	while (camionA_1.getLongitud() != 0)
+	{
+		Vehiculo v = camionA_1.extraer();
+		v.set_concesionario(v.generarConcesionario());
+		cola_zona.insertar(v);
+	}
+	while (camionA_2.getLongitud() != 0)
+	{
+		Vehiculo v = camionA_2.extraer();
+		v.set_concesionario(v.generarConcesionario());
+		cola_zona.insertar(v);
+
+	}
+	while (camionB_1.getLongitud() != 0)
+	{
+		Vehiculo v = camionB_1.extraer();
+		v.set_concesionario(v.generarConcesionario());
+		cola_zona.insertar(v);
+	}
+	while (camionB_2.getLongitud() != 0)
+	{
+		Vehiculo v = camionB_2.extraer();
+		v.set_concesionario(v.generarConcesionario());
+		cola_zona.insertar(v);
+	}
+	while (camionC_1.getLongitud() != 0)
+	{
+		Vehiculo v = camionC_1.extraer();
+		v.set_concesionario(v.generarConcesionario());
+		cola_zona.insertar(v);
+	}
+	while (camionC_2.getLongitud() != 0)
+	{
+		Vehiculo v = camionC_2.extraer();
+		v.set_concesionario(v.generarConcesionario());
+		cola_zona.insertar(v);
+	}
+	mostrar_cola_fabrica();
+	mostrar_cola_zona_Y_pilas();
+	cout << endl;
+
+}

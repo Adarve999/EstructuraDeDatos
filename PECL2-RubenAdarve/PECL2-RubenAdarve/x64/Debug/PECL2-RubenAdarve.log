@@ -1,0 +1,6 @@
+﻿  Gestor.cpp
+  PECL2-RubenAdarve.cpp
+G:\Mi unidad\1º cuatrimestre\1 Estructuras de datos\laboratorio\PECL2\PECL2-RubenAdarve\PECL2-RubenAdarve\PECL2-RubenAdarve.cpp(16,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Pedido.cpp
+  Generando código...
+  PECL2-RubenAdarve.vcxproj -> G:\Mi unidad\1º cuatrimestre\1 Estructuras de datos\laboratorio\PECL2\PECL2-RubenAdarve\x64\Debug\PECL2-RubenAdarve.exe
