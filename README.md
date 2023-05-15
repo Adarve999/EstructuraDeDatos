@@ -1,3 +1,26 @@
+# Data Structures Practice: From Stacks and Queues to Trees
+
+## Objective
+
+This repository has been created with the aim of recording and showcasing the progress and learnings in the Data Structures subject. Throughout the course, we have covered basic and fundamental concepts such as stacks, queues, and lists, and have advanced to more complex and powerful data structures such as trees.
+
+## Contents
+
+In this repository, you will find various directories, each corresponding to a particular data structure. Within each directory, you will find Python code that implements and demonstrates the use of that data structure. In addition, we include analysis and explanations to help understand how and why these data structures work.
+
+Here is a summary of the contents of each directory:
+
+1. **Stacks**: Implementation and usage examples of the stack data structure.
+2. **Queues**: Implementation and usage examples of the queue data structure.
+3. **Lists**: Implementation and usage examples of the list data structure.
+4. **Trees**: Implementation and usage examples of the tree data structure.
+
+## How to Use This Repository
+
+To get the most out of this repository, we suggest you explore each directory and read the code and explanations we provide. If you have any questions or don't understand something, feel free to create an Issue, and we'll be happy to help.
+
+We hope this repository is helpful for you to learn and better understand Data Structures. Enjoy exploring!
+
 # Práctica de Estructura de Datos: Desde Pilas y Colas hasta Árboles
 
 ## Objetivo
